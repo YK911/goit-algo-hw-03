@@ -17,14 +17,14 @@ def draw_koch_snowflake(order, size):
     screen.title("Koch Snowflake")
 
     snowflake_turtle = turtle.Turtle()
-    snowflake_turtle.setpos(-size / 2, size / 2)
+    snowflake_turtle.goto(-size / 2, size / 2)
     snowflake_turtle.color("white")
     snowflake_turtle.speed(10)
     snowflake_turtle.width(4)
 
-    for _ in range(4):
+    for _ in range(3):
         koch_snowflake(snowflake_turtle, order, size)
-        snowflake_turtle.right(90)
+        snowflake_turtle.right(120)
 
     screen.mainloop()
 

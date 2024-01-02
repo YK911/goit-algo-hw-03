@@ -4,26 +4,17 @@ import argparse
 import os
 
 
-DEFAULT_SOURCE = Path.cwd()
-DEFAULT_DESTINATION = Path("./dist")
-
-
 def copy_files(source, destination):
-    source_folder = Path(source) if source else DEFAULT_SOURCE
-    destination_folder = Path(destination) if destination else DEFAULT_DESTINATION
-
-    if not destination_folder.exists():
+    if not destination.exists():
         print("Destination folder was created in the current directory")
-        destination_folder.mkdir()
+        destination.mkdir()
 
-    for current_path in source_folder.iterdir():
+    for current_path in source.iterdir():
         if current_path.is_dir():
-            copy_files(current_path, destination_folder)
+            copy_files(current_path, destination)
         else:
             has_access = check_access(current_path)
-            is_new_folder_path = create_folder_by_extension(
-                current_path, destination_folder
-            )
+            is_new_folder_path = create_folder_by_extension(current_path, destination)
             if has_access and is_new_folder_path:
                 copy_path = check_dublicates(current_path, is_new_folder_path)
 
@@ -74,11 +65,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Copying files")
 
     parser.add_argument(
-        "--source", type=str, help="The path to the source directory", required=False
+        "--source",
+        default=Path.cwd(),
+        type=Path,
+        help="The path to the source directory",
+        required=False,
     )
     parser.add_argument(
         "--destination",
-        type=str,
+        default=Path("./dist"),
+        type=Path,
         help="The path to the destination directory",
         required=False,
     )
