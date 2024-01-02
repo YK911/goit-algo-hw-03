@@ -10,7 +10,7 @@ def koch_snowflake(t, order, size):
             t.left(angle)
 
 
-def draw_koch_snowflake(order, size):
+def draw_koch_snowflake(order, size=300):
     screen = turtle.Screen()
     screen.setup(600, 600)
     screen.bgcolor("lightblue")
@@ -29,4 +29,13 @@ def draw_koch_snowflake(order, size):
     screen.mainloop()
 
 
-draw_koch_snowflake(order=3, size=300)
+if __name__ == "__main__":
+    while True:
+        user_input = input("Enter the recursion level as a number: ")
+
+        try:
+            recursion_depth = float(user_input)
+            draw_koch_snowflake(order=recursion_depth)
+            break
+        except ValueError:
+            print("Error: Please enter a valid number")
